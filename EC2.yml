@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  gather_facts: False
+  tasks:
+   - name: including vars.yml
+     include_vars:
+       file: vars.yml
+
+   - name: launching ec2 instances
+     ec2:
+        aws_access_key: "{{ ec2_access_key }}"
+        aws_secret_key: "{{ ec2_secret_key }}"
+        key_name: sanyam123
+        group: kubernetes
+        instance_type: t2.micro
+        image: ami-00dc79254d0461090
+        ec2_region: us-east-1
+        wait: true
+        instance_tags:
+              name: Demo
+        vpc_subnet_id: subnet-9055f9be
+        assign_public_ip: yes
