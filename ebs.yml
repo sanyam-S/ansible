@@ -1,0 +1,46 @@
+---
+- hosts: localhost
+  gather_facts: False
+  tasks:
+   - name: including var.yml
+     include_vars:
+        file: vars.yml
+
+
+   - name: creating the security group
+     ec2_group:
+        aws_access_key: "{{ ec2_access_key }}"
+        aws_secret_key: "{{ ec2_secret_key }}"
+        name: mygrp
+        description: mygrp ec2 group
+        vpc_id: vpc-xxxxxxx
+        region: us-east-1
+        rules:
+          - proto: tcp
+            ports:
+            - 80
+            cidr_ip: 0.0.0.0./0
+
+- name: creating ec2 instance
+     ec2:
+        aws_access_key: "{{ ec2_access_key }}"
+        aws_secret_key: "{{ ec2_secret_key }}"
+        group: mygrp
+        instance_type: t2.micro
+        image: ami-00dc79254d0461090
+        ec2_region: us-east-1
+        wait: true
+        instance_tags:
+             name: Demo
+        vpc_subnet_id: xxxxxx
+        assign_public_ip: yes
+
+   - name: creating a new ebs volume
+     ec2_vol:
+        aws_access_key: "{{ ec2_access_key }}"
+        aws_secret_key: "{{ ec2_secret_key }}"
+        volume_size: 5
+        volume_type: gp2
+        region: us-east-1
+        zone: us-east-1c
+        device_name: sdd
