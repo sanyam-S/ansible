@@ -6,7 +6,6 @@
      include_vars:
         file: vars.yml
 
-
    - name: creating the security group
      ec2_group:
         aws_access_key: "{{ ec2_access_key }}"
@@ -21,7 +20,7 @@
             - 80
             cidr_ip: 0.0.0.0./0
 
-- name: creating ec2 instance
+   - name: creating ec2 instance
      ec2:
         aws_access_key: "{{ ec2_access_key }}"
         aws_secret_key: "{{ ec2_secret_key }}"
