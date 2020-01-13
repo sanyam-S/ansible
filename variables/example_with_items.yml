@@ -1,0 +1,12 @@
+---
+- hosts: apache
+  tasks:
+        - name: installing the web-servers
+          yum:
+               name: "{{item}}"
+               state: present
+
+          with_items:
+             - httpd
+             - nginx
+             - mariadb-server
