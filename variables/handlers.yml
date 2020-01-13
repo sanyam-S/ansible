@@ -1,0 +1,15 @@
+---
+- hosts: apache
+  tasks: 
+        - name: handler user
+          yum:
+               name: nginx
+               state: present
+          notify: 
+             - start policy
+
+  handlers:
+          - name: start nginx
+            service: 
+                name: nginx
+                state: restart

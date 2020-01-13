@@ -1,0 +1,11 @@
+---
+- hosts: apache
+  tasks:
+     - name: ansible register values
+       shell: "find *.txt"
+       args:
+          chdir: "/root/docker/terraform"
+       register: find_output
+
+     - debug:
+          var: find_output

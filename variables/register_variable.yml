@@ -1,0 +1,9 @@
+---
+- hosts: apache
+  tasks:
+      - name: 
+        shell: "ls"
+        register: find
+
+      - debug:
+           var: find
